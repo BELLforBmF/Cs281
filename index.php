@@ -36,6 +36,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
   <body>
 
@@ -44,44 +45,57 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="user-menu">
-                        <ul>
-                            <li>
-                            <a href="#"><i class="fa fa-user"></i>
+
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="header-right">
+                      <ul class="list-unstyled list-inline">
+                          <li class="dropdown dropdown-small">
+
                               <?php
-                                  if(isset($_SESSION["mem_id"])){
-                                      echo $_SESSION["mem_id"];
-                                  }else{
-                                      echo 'login dee saddd!!';
-                                  }
+                                if(isset($_SESSION["mem_type"])){
+                                      if($_SESSION["mem_type"]==0){
                               ?>
-                            </a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <?php
-                              if(isset($_SESSION["mem_type"])){
-                                    if($_SESSION["mem_type"]==0){
-                                          echo '<li><a href="add_product.html"><i class="fa fa-shopping-cart"></i>Add Product</a></li>';
-                                    }
-                                    echo '<li><a href="logout.php"><i class="fa fa-user"></i> Logout</a></li>';
+                                        <li>
+                                        <a href="cart.html"><i class="fa fa-user"></i>
+                                          <?php
+                                              if(isset($_SESSION["mem_id"])){
+                                                  echo $_SESSION["mem_id"];
+                                              }else{
+                                                  echo 'Please login';
+                                              }
+                                          ?>
+                                        </a></li>
 
+                              <?php
+                                          echo '<li><a href="add_product.html"><i class=""></i>Add Product</a></li>';
+                                        }
+                                      echo '<li><a href="logout.php"><i class="fa fa-user"></i> Logout</a></li>';
 
-                              }else{
-                                  echo '<li><a href="Login.html"><i class="fa fa-user"></i> Login</a></li>';
-                              }
-                            ?>
+                                }else{
+                                    echo '<li><a href="Login.html"><i class="fa fa-user"></i> Login</a></li>';
+                                }
+                              ?>
 
-                        </ul>
-                    </div>
-                </div>
+                              <?php
+                                if(isset($_SESSION["mem_type"])){
+                                      if($_SESSION["mem_type"]==0){
+                                      }
 
-                <div class="col-md-4">
-                    <div class="header-right">
-                        <ul class="list-unstyled list-inline">
+                                }else{
+                                    echo '<li><a href="sign-up.html"><i class="fa fa-user"></i> Sign-up</a></li>';
+                                }
+                              ?>
+                              <!--<li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>-->
+                              <li><a>|</a></li>
+                              <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> My Cart</a></li>
+                          </li>
 
-                        </ul>
-                    </div>
-                </div>
+                      </ul>
+                  </div>
+                </div><!-- End header area -->
             </div>
         </div>
     </div> <!-- End header area -->
@@ -95,9 +109,10 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                                              <h1><a href="./"><img src="img/h4-slide.png"></a></h1>
+
                     </div>
                 </div>
             </div>
@@ -122,10 +137,14 @@
                         <li><a href="single-product.html">Single product</a></li>
                         <li><a href="cart.html">Cart</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
+                    <p></p>
+                    <input type="text" placeholder="Search products..." >
+                    <input type="submit" value="Search">
+                    <?php
+                    ?>
                 </div>
             </div>
         </div>
