@@ -15,5 +15,4 @@
   $mem = new Member($id,$pwd,$name,$lname,$type,$address,$email);
   $mem->register($conn);
 
-
 ?>

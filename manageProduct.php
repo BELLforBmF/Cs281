@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout Page</title>
+    <title>Smart Phone 4.0 Thailand</title>
 
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -47,6 +47,7 @@
                             <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
                             <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
                             <li><a href="Login-page.html"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="manageProduct.php"><i class="fa fa-user"></i> Product Manage</a></li>
                         </ul>
                     </div>
                 </div>
@@ -89,7 +90,7 @@
 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.html">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
                     </div>
                 </div>
             </div>
@@ -114,7 +115,6 @@
                         <li><a href="single-product.html">Single product</a></li>
                         <li><a href="cart.html">Cart</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
-                        <li class="active"><a href="add_product.html">Add Product</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -129,12 +129,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Add Product</h2>
+                        <h2>Product manage</h2>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- End Page title area -->
 
 
     <div class="single-product-area">
@@ -142,102 +142,62 @@
         <div class="container">
             <div class="row">
 
+
                 <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="woocommerce">
+                                <table cellspacing="0" class="shop_table cart">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-id">ID</th>
+                                            <th class="product-name">Product name</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product-quantity">Stock</th>
+                                            <th class="product-quantity">Update</th>
+                                            <th class="delete">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include 'class/Product.php';
+                                        include 'class/Conn.php';
+                                        $product = new Product('','','','','','');
+                                        $proarr = $product->getListProd($conn);
+                                        foreach ($proarr as $pro){?>
+                                        <form action="updateProduct.php" method="post">
+                                        <tr class="cart_item">
+                                            <td class="product-id">
+                                                  <input type="hidden" name="pid" value="<?php echo $pro->_pid; ?>">
+                                                   <?php echo $pro->_pid; ?>
+                                            </td>
 
-                            <form id="login-form-wrap" class="login collapse" method="post">
+                                            <td class="product-name">
+                                                <a href="single-product.html"><?php echo $pro->_pname; ?></a>
+                                            </td>
 
-                                <p class="form-row form-row-first">
-                                    <label for="username">Username or email <span class="required">*</span>
-                                    </label>
-                                    <input type="text" id="username" name="username" class="input-text">
-                                </p>
-                                <p class="form-row form-row-last">
-                                    <label for="password">Password <span class="required">*</span>
-                                    </label>
-                                    <input type="password" id="password" name="password" class="input-text">
-                                </p>
-                                <div class="clear"></div>
+                                            <td class="product-price">
+                                                <input type="text" value="<?php echo $pro->_price; ?>" placeholder="" id="product-price" name="pprice" class="input-text ">
+                                                <label>TH Baht</label>
+                                            </td>
 
-
-                                <p class="form-row">
-                                    <input type="submit" value="Login" name="login" class="button">
-                                    <label class="inline" for="rememberme"><input type="checkbox" value="forever" id="rememberme" name="rememberme"> Remember me </label>
-                                </p>
-                                <p class="lost_password">
-                                    <a href="#">Lost your password?</a>
-                                </p>
-
-                                <div class="clear"></div>
-                            </form>
-
-                            <form id="coupon-collapse-wrap" method="post" class="checkout_coupon collapse">
-
-                                <p class="form-row form-row-first">
-                                    <input type="text" value="" id="coupon_code" placeholder="Coupon code" class="input-text" name="coupon_code">
-                                </p>
-
-                                <p class="form-row form-row-last">
-                                    <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
-                                </p>
-
-                                <div class="clear"></div>
-                            </form>
-
-                            <form enctype="multipart/form-data" action="addProduct.php" class="checkout" method="post" name="checkout">
-
-                                <div id="customer_details" class="col12-set">
-                                    <div class="col-12">
-                                        <div class="woocommerce-billing-fields">
-                                            <h3>Add Product</h3>
-
-                                            <p id="billing_first_name_field" class="form-row form-row-first validate-required">
-                                                <label class="" for="billing_first_name">Product Name <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="" placeholder="" id="billing_first_name" name="pname" class="input-text ">
-                                            </p>
-
-                                            <p id="billing_last_name_field" class="form-row form-row-last validate-required">
-                                                <label class="" for="billing_last_name">Price <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="" placeholder="" id="billing_last_name" name="pprice" class="input-text ">
-                                            </p>
-                                            <div class="clear"></div>
-
-                                            <p id="billing_company_field" class="form-row form-row-wide">
-                                                <label class="" for="billing_company">Info</label>
-                                                <input type="text" value="" placeholder="" id="billing_company" name="pinfo" class="input-text ">
-                                            </p>
-
-
-
-                                            <p id="billing_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
-                                                <label class="" for="billing_city">Image <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="file" value="" placeholder="Town / City" id="billing_city" name="pimg" class="input-text ">
-                                            </p>
-
-
-
-                                            <div class="clear"></div>
-
-
-
-
-                                            <div class="clear"></div>
-                                        </div>
-                                        <div class="form-row place-order">
-
-                                            <input type="submit" data-value="Place order" value="ADD" id="place_order" name="woocommerce_checkout_place_order" class="button alt">
-
-
-                                        </div>
-
-                                    </div>
-                                  </div>
-                            </form>
-
+                                            <td class="product-quantity">
+                                                <div class="quantity buttons_added">
+                                                    <input type="number" size="4" class="input-text qty text" name="qty" title="Qty" value="<?php echo $pro->_stock; ?>" min="0" step="1">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="submit" value="Update" name="proceed" class="checkout-button button alt wc-forward">
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger">
+                                                  Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </form>
+                                      <?php } ?>
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
@@ -267,11 +227,11 @@
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">User Navigation </h2>
                         <ul>
-                            <li><a href="">My account</a></li>
-                            <li><a href="">Order history</a></li>
-                            <li><a href="">Wishlist</a></li>
-                            <li><a href="">Vendor contact</a></li>
-                            <li><a href="">Front page</a></li>
+                            <li><a href="#">My account</a></li>
+                            <li><a href="#">Order history</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="#">Vendor contact</a></li>
+                            <li><a href="#">Front page</a></li>
                         </ul>
                     </div>
                 </div>
@@ -280,11 +240,11 @@
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">Categories</h2>
                         <ul>
-                            <li><a href="">Mobile Phone</a></li>
-                            <li><a href="">Home accesseries</a></li>
-                            <li><a href="">LED TV</a></li>
-                            <li><a href="">Computer</a></li>
-                            <li><a href="">Gadets</a></li>
+                            <li><a href="#">Mobile Phone</a></li>
+                            <li><a href="#">Home accesseries</a></li>
+                            <li><a href="#">LED TV</a></li>
+                            <li><a href="#">Computer</a></li>
+                            <li><a href="#">Gadets</a></li>
                         </ul>
                     </div>
                 </div>
@@ -294,14 +254,17 @@
                         <h2 class="footer-wid-title">Newsletter</h2>
                         <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
                         <div class="newsletter-form">
-                            <input type="email" placeholder="Type your email">
-                            <input type="submit" value="Subscribe">
+                            <form action="#">
+                                <input type="email" placeholder="Type your email">
+                                <input type="submit" value="Subscribe">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- End footer top area -->
+
     <div class="footer-bottom-area">
         <div class="container">
             <div class="row">
@@ -321,7 +284,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- End footer bottom area -->
 
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>

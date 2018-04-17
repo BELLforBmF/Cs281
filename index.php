@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <!--
 	ustora by freshdesignweb.com
@@ -9,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ustora</title>
+    <title>Smart Phone 4.0 Thailand</title>
 
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -42,11 +45,32 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                            <li>
+                            <a href="#"><i class="fa fa-user"></i>
+                              <?php
+                                  if(isset($_SESSION["mem_id"])){
+                                      echo $_SESSION["mem_id"];
+                                  }else{
+                                      echo 'login dee saddd!!';
+                                  }
+                              ?>
+                            </a></li>
                             <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                             <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
                             <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="Login-page.html"><i class="fa fa-user"></i> Login</a></li>
+                            <?php
+                              if(isset($_SESSION["mem_type"])){
+                                    if($_SESSION["mem_type"]==0){
+                                          echo '<li><a href="add_product.html"><i class="fa fa-shopping-cart"></i>Add Product</a></li>';
+                                    }
+                                    echo '<li><a href="logout.php"><i class="fa fa-user"></i> Logout</a></li>';
+
+
+                              }else{
+                                  echo '<li><a href="Login.html"><i class="fa fa-user"></i> Login</a></li>';
+                              }
+                            ?>
+
                         </ul>
                     </div>
                 </div>
@@ -54,23 +78,7 @@
                 <div class="col-md-4">
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">INR</a></li>
-                                    <li><a href="#">GBP</a></li>
-                                </ul>
-                            </li>
 
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">German</a></li>
-                                </ul>
-                            </li>
                         </ul>
                     </div>
                 </div>
